@@ -102,6 +102,18 @@ export const NAV_ITEMS: NavItem[] = [
     icon: MessageSquareWarning,
     roles: ["admin"],
   },
+  {
+    title: "Manage Medicines",
+    href: "/dashboard/medicines",
+    icon: Package,
+    roles: ["admin"]
+  },
+  { 
+    title: "All Orders",
+    href: "/dashboard/orders",
+    icon: ClipboardList,
+    roles: ["admin"]
+   },
 ];
 
 export function getNavItemsByRole(role: UserRole) {
