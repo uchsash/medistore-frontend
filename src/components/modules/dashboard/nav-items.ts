@@ -25,13 +25,13 @@ export type NavItem = {
 export const NAV_ITEMS: NavItem[] = [
   // Common
   {
-    title: "Home",
+    title: "Home", //done
     href: "/",
     icon: Home,
     roles: ["customer", "seller", "admin"],
   },
   {
-    title: "Overview",
+    title: "Overview", //done
     href: "/dashboard",
     icon: LayoutDashboard,
     roles: ["customer", "seller", "admin"],
@@ -45,8 +45,8 @@ export const NAV_ITEMS: NavItem[] = [
 
   // Customer
   {
-    title: "Browse Medicines",
-    href: "/medicines",
+    title: "Browse Medicines", //done
+    href: "/medicine",
     icon: Pill,
     roles: ["customer"],
   },
@@ -59,20 +59,20 @@ export const NAV_ITEMS: NavItem[] = [
 
   // Seller
   {
-    title: "Add Medicine",
-    href: "/dashboard/seller/add-medicine",
+    title: "Add Medicine", //done
+    href: "/dashboard/add-medicine",
     icon: PackagePlus,
     roles: ["seller"],
   },
   {
     title: "My Medicines",
-    href: "/dashboard/seller/my-medicines",
+    href: "/dashboard/my-medicine",
     icon: Package,
     roles: ["seller"],
   },
   {
     title: "Manage Orders",
-    href: "/dashboard/seller/orders",
+    href: "/dashboard/orders",
     icon: ClipboardList,
     roles: ["seller"],
   },
@@ -80,25 +80,25 @@ export const NAV_ITEMS: NavItem[] = [
   // Admin
   {
     title: "Manage Categories",
-    href: "/dashboard/admin/categories",
+    href: "/dashboard/categories",
     icon: Layers,
     roles: ["admin"],
   },
   {
     title: "Manage Users",
-    href: "/dashboard/admin/users",
+    href: "/dashboard/users",
     icon: Users,
     roles: ["admin"],
   },
   {
     title: "All Orders",
-    href: "/dashboard/admin/orders",
+    href: "/dashboard/orders",
     icon: ClipboardList,
     roles: ["admin"],
   },
   {
     title: "Review Moderation",
-    href: "/dashboard/admin/reviews",
+    href: "/dashboard/reviews",
     icon: MessageSquareWarning,
     roles: ["admin"],
   },

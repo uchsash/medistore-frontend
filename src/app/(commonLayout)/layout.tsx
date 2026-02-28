@@ -13,7 +13,6 @@ export default function CommonLayout({
       >
         <Navbar />
         {/* <HeroSearch /> */}
-        <h1>This is common layout</h1>
         {children}
       </div>
 

@@ -1,6 +1,6 @@
 import { Separator } from "@/components/ui/separator";
 
-export default function DashboardPage() {
+export default function SellerPage() {
   return (
     <div className="space-y-6">
       <div>

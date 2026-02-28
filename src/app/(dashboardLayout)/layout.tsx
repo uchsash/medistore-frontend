@@ -3,12 +3,10 @@ import { getCurrentUser } from "@/lib/current-user";
 
 
 export default async function DashboardLayout({
-    children,
     admin,
     seller,
     customer,
 }: {
-    children: React.ReactNode;
     admin: React.ReactNode;
     seller: React.ReactNode;
     customer: React.ReactNode;
@@ -33,7 +31,6 @@ export default async function DashboardLayout({
 
     return (
         <DashboardShell role={role}>
-            {children}
             {content}
         </DashboardShell>
     );
