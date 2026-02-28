@@ -60,6 +60,9 @@ export type CurrentUser = {
   role: UiRole;
   email?: string;
   name?: string;
+  phone?: string | null;
+  image?: string | null;
+  status?: string;
 };
 
 export async function getCurrentUser(): Promise<CurrentUser | null> {
@@ -75,5 +78,8 @@ export async function getCurrentUser(): Promise<CurrentUser | null> {
     role: normalizeRole(user.role), // safe even if backend returns "SELLER"
     email: user.email,
     name: user.name,
+    phone: user.phone ?? null,
+    image: user.image ?? null,
+    status: user.status,
   };
 }

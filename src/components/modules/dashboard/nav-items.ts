@@ -31,13 +31,13 @@ export const NAV_ITEMS: NavItem[] = [
     roles: ["customer", "seller", "admin"],
   },
   {
-    title: "Overview", //done
+    title: "Overview", //not done
     href: "/dashboard",
     icon: LayoutDashboard,
     roles: ["customer", "seller", "admin"],
   },
   {
-    title: "My Profile",
+    title: "My Profile", //done
     href: "/dashboard/profile",
     icon: User,
     roles: ["customer", "seller", "admin"],
@@ -79,19 +79,19 @@ export const NAV_ITEMS: NavItem[] = [
 
   // Admin
   {
-    title: "Manage Categories",
+    title: "Manage Categories", //done
     href: "/dashboard/categories",
     icon: Layers,
     roles: ["admin"],
   },
   {
-    title: "Manage Users",
+    title: "Manage Users", //done
     href: "/dashboard/users",
     icon: Users,
     roles: ["admin"],
   },
   {
-    title: "All Orders",
+    title: "All Orders", //done
     href: "/dashboard/orders",
     icon: ClipboardList,
     roles: ["admin"],
@@ -103,7 +103,7 @@ export const NAV_ITEMS: NavItem[] = [
     roles: ["admin"],
   },
   {
-    title: "Manage Medicines",
+    title: "Manage Medicines", //done
     href: "/dashboard/medicines",
     icon: Package,
     roles: ["admin"]
