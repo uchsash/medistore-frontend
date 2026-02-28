@@ -24,6 +24,9 @@ const NavLinks = () => (
     <Link href="/contact" className="hover:text-primary-foreground/80 transition-colors">
       Contact Us
     </Link>
+    <Link href="/dashboard" className="hover:text-primary-foreground/80 transition-colors">
+      Dashboard
+    </Link>
   </>
 );
 

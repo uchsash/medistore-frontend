@@ -50,6 +50,28 @@ export type Paginated<T> = {
   pagination: { total: number; page: number; limit: number; totalPages: number };
 };
 
+export type MedicineDetails = {
+  id: string;
+  name: string;
+  description: string;
+  price: number;
+  manufacturer: string;
+  stock: number;
+  imageUrl?: string | null;
+  categoryId: string;
+  category?: { id: string; name: string };
+};
+
+export type UpdateMedicinePayload = Partial<{
+  name: string;
+  description: string;
+  manufacturer: string;
+  price: number;
+  stock: number;
+  categoryId: string;
+  imageUrl?: string;
+}>;
+
 export const sellerMedicineService = {
   async createMedicine(payload: CreateMedicinePayload) {
     const res = await fetch(`${env.NEXT_PUBLIC_BACKEND_URL}/api/medicines`, {
@@ -76,7 +98,7 @@ export const sellerMedicineService = {
       {
         method: "GET",
         credentials: "include",
-        cache: "no-store", // private seller data
+        cache: "no-store", 
       }
     );
 
@@ -90,6 +112,50 @@ export const sellerMedicineService = {
     }
 
     return data as Paginated<MedicineRow>;
+  },
+
+  async getMedicineById(medId: string): Promise<MedicineDetails> {
+    const res = await fetch(`${env.NEXT_PUBLIC_BACKEND_URL}/api/medicines/${medId}`, {
+      method: "GET",
+      credentials: "include",
+      cache: "no-store",
+    });
+
+    const data: unknown = await res.json().catch(() => null);
+
+    if (!res.ok) {
+      const msg =
+        (data as { message?: string })?.message ||
+        (data as { error?: string })?.error ||
+        "Failed to load medicine";
+      throw new Error(msg);
+    }
+
+    // your controller returns { success, message, data }
+    const wrapped = data as { data?: MedicineDetails };
+    if (!wrapped?.data) throw new Error("Invalid response from server");
+    return wrapped.data;
+  },
+
+    async updateMedicine(medId: string, payload: UpdateMedicinePayload) {
+    const res = await fetch(`${env.NEXT_PUBLIC_BACKEND_URL}/api/medicines/${medId}`, {
+      method: "PATCH",
+      headers: { "Content-Type": "application/json" },
+      credentials: "include",
+      body: JSON.stringify(payload),
+    });
+
+    const data: unknown = await res.json().catch(() => null);
+
+    if (!res.ok) {
+      const msg =
+        (data as { message?: string })?.message ||
+        (data as { error?: string })?.error ||
+        "Failed to update medicine";
+      throw new Error(msg);
+    }
+
+    return data;
   },
 
   async deleteMedicine(medId: string) {

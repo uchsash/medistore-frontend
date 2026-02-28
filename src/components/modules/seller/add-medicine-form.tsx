@@ -288,7 +288,7 @@ export function AddMedicineForm() {
                 </Form>
 
                 <p className="mt-4 text-xs text-muted-foreground">
-                    Need categories? <Link className="underline" href="/dashboard/admin/categories">Ask admin</Link>.
+                    Need categories? Please, ask admin.
                 </p>
             </CardContent>
         </Card>

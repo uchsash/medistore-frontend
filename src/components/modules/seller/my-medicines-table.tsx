@@ -92,7 +92,7 @@ export function MyMedicinesTable({
     startTransition(() => router.replace(`${pathname}?${next.toString()}`));
   }
 
-  // Debounce search -> URL
+  
   useEffect(() => {
     const t = setTimeout(() => {
       setParam("search", search.trim() ? search.trim() : undefined);
@@ -147,21 +147,35 @@ export function MyMedicinesTable({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [sp?.toString()]);
 
-  const handleDelete = async () => {
-    if (!confirmId) return;
-    try {
-      await sellerMedicineService.deleteMedicine(confirmId);
-      toast.success("Medicine deleted");
-      setConfirmId(null);
-      // refresh current list
-      router.refresh();
-      // also refetch by re-pushing same URL
-      startTransition(() => router.replace(`${pathname}?${sp.toString()}`));
-    } catch (e: unknown) {
-      const msg = e instanceof Error ? e.message : "Delete failed";
-      toast.error(msg);
+const handleDelete = async () => {
+  if (!confirmId) return;
+
+  const deletingId = confirmId;
+
+  
+  const currentPage = pagination.page;
+  const itemsOnThisPage = rows.length;
+
+  try {
+    await sellerMedicineService.deleteMedicine(deletingId);
+
+    toast.success("Medicine deleted");
+    setConfirmId(null);
+
+    setRows((prev) => prev.filter((r) => r.id !== deletingId));
+    setPagination((p) => ({ ...p, total: Math.max(0, p.total - 1) }));
+
+
+    if (currentPage > 1 && itemsOnThisPage === 1) {
+      setPage(currentPage - 1); 
+      return;
     }
-  };
+    startTransition(() => router.replace(`${pathname}?${sp.toString()}`));
+  } catch (e: unknown) {
+    const msg = e instanceof Error ? e.message : "Delete failed";
+    toast.error(msg);
+  }
+};
 
   return (
     <Card className="rounded-2xl">
@@ -301,7 +315,7 @@ export function MyMedicinesTable({
 
                           <DropdownMenuContent align="end" className="w-44">
                             <DropdownMenuItem asChild>
-                              <Link href={`/dashboard/seller/my-medicines/${m.id}/edit`}>
+                              <Link href={`/dashboard/my-medicine/${m.id}/edit`}>
                                 <Pencil className="mr-2 h-4 w-4" />
                                 Edit
                               </Link>
