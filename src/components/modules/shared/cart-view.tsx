@@ -87,9 +87,7 @@ export default function CartView() {
       clearCart();
       setItems([]);
       setShippingAddress("");
-
-      // You can redirect later to /dashboard/my-orders (once built)
-      // router.push("/dashboard/my-orders");
+    //   router.push("/dashboard/my-orders");
     } catch (e: unknown) {
       const msg = e instanceof Error ? e.message : "Order failed";
       toast.error(msg);
