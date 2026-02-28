@@ -55,7 +55,7 @@ import {
 function statusBadge(status: OrderStatus) {
   switch (status) {
     case "PENDING":
-      return <Badge variant="secondary">PENDING</Badge>;
+      return <Badge>PENDING</Badge>;
     case "SHIPPED":
       return <Badge className="rounded-full">SHIPPED</Badge>;
     case "DELIVERED":

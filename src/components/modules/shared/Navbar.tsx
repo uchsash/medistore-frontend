@@ -9,6 +9,7 @@ import { authClient } from "@/lib/auth-client";
 import { useRouter } from "next/navigation";
 import { toast } from "sonner";
 import { VisuallyHidden } from "@radix-ui/react-visually-hidden";
+import { useCartCount } from "@/hooks/use-cart-count";
 
 const NavLinks = () => (
   <>
@@ -34,9 +35,12 @@ export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
   const router = useRouter();
 
-  // Hooks at the top (unchanged)
   const { data: session, isPending } = authClient.useSession();
   const [isMounted, setIsMounted] = useState(false);
+
+  // IMPORTANT: cartCount can depend on localStorage. We'll only "trust" it after mount.
+  const cartCount = useCartCount();
+  const safeCartCount = isMounted ? cartCount : 0;
 
   useEffect(() => {
     setIsMounted(true);
@@ -57,7 +61,6 @@ export default function Navbar() {
       },
     });
   };
-
 
   if (!isMounted) {
     return (
@@ -98,8 +101,14 @@ export default function Navbar() {
               disabled
             >
               <ShoppingCart className="h-5 w-5" />
-              <span className="absolute -top-1 -right-1 bg-destructive text-[10px] font-bold rounded-full h-4 w-4 flex items-center justify-center border border-primary">
-                2
+              {/* Keep DOM stable: badge always exists, hidden when 0 */}
+              <span
+                className={[
+                  "absolute -top-1 -right-1 bg-destructive text-[10px] font-bold rounded-full h-4 min-w-4 px-1 flex items-center justify-center border border-primary",
+                  safeCartCount > 0 ? "" : "hidden",
+                ].join(" ")}
+              >
+                {safeCartCount}
               </span>
             </Button>
 
@@ -171,11 +180,25 @@ export default function Navbar() {
             <Heart className="h-5 w-5" />
           </Button>
 
-          <Button variant="ghost" size="icon" className="relative text-primary-foreground hover:bg-white/20 rounded-full">
-            <ShoppingCart className="h-5 w-5" />
-            <span className="absolute -top-1 -right-1 bg-destructive text-[10px] font-bold rounded-full h-4 w-4 flex items-center justify-center border border-primary">
-              2
-            </span>
+          {/* ✅ Correct: Button asChild must wrap ONE element (Link) */}
+          <Button
+            asChild
+            variant="ghost"
+            size="icon"
+            className="relative text-primary-foreground hover:bg-white/20 rounded-full"
+          >
+            <Link href="/cart" aria-label="Cart">
+              <ShoppingCart className="h-5 w-5" />
+              {/* Keep DOM stable: badge always exists, hidden when 0 */}
+              <span
+                className={[
+                  "absolute -top-1 -right-1 bg-destructive text-[10px] font-bold rounded-full h-4 min-w-4 px-1 flex items-center justify-center border border-primary",
+                  safeCartCount > 0 ? "" : "hidden",
+                ].join(" ")}
+              >
+                {safeCartCount}
+              </span>
+            </Link>
           </Button>
 
           <div className="hidden md:flex items-center gap-2">
@@ -217,7 +240,10 @@ export default function Navbar() {
                 <SheetTitle>Dashboard navigation</SheetTitle>
               </VisuallyHidden>
 
-              <SheetContent side="right" className="bg-primary border-2 border-red-600 px-4 pt-4 text-primary-foreground">
+              <SheetContent
+                side="right"
+                className="bg-primary border-2 border-red-600 px-4 pt-4 text-primary-foreground"
+              >
                 <nav className="flex flex-col gap-4 text-lg font-semibold">
                   <NavLinks />
                   <hr className="border-primary-foreground/20" />

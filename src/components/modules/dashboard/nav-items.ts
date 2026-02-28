@@ -51,7 +51,7 @@ export const NAV_ITEMS: NavItem[] = [
     roles: ["customer"],
   },
   {
-    title: "My Orders",
+    title: "My Orders", //done
     href: "/dashboard/my-orders",
     icon: ShoppingBag,
     roles: ["customer"],
@@ -65,13 +65,13 @@ export const NAV_ITEMS: NavItem[] = [
     roles: ["seller"],
   },
   {
-    title: "My Medicines",
+    title: "My Medicines", //done
     href: "/dashboard/my-medicine",
     icon: Package,
     roles: ["seller"],
   },
   {
-    title: "Manage Orders",
+    title: "Manage Orders", //done
     href: "/dashboard/orders",
     icon: ClipboardList,
     roles: ["seller"],
@@ -108,12 +108,6 @@ export const NAV_ITEMS: NavItem[] = [
     icon: Package,
     roles: ["admin"]
   },
-  { 
-    title: "All Orders",
-    href: "/dashboard/orders",
-    icon: ClipboardList,
-    roles: ["admin"]
-   },
 ];
 
 export function getNavItemsByRole(role: UserRole) {

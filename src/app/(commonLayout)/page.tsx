@@ -5,8 +5,8 @@ import { cookies } from "next/headers";
 
 
 export default async function Home() {
-  // const {data } = await userService.getSession();
-  // console.log(data);
+  const {data } = await userService.getSession();
+  console.log(data);
 
   return (
     <div>Home <br />
